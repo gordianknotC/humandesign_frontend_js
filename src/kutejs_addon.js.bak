@@ -1,0 +1,30 @@
+/**
+ * Created by gordianknot on 7/17/2017.
+ */
+
+const KUTE = require('kute.js')
+//require("kute.js/kute-svg")
+
+KUTE.Tween.prototype.__lelapsed = 0
+KUTE.Tween.prototype.__elapsed  = 0
+KUTE.Tween.prototype.seek       = function (elapsed) {
+   this.__lelapsed = this.__elapsed
+   this.__elapsed  = elapsed
+   if (this.__lelapsed === elapsed) return false
+   
+   let progress = this.options.easing(elapsed)
+   let tweenProp
+   for (tweenProp in this.valuesEnd) { // render the DOM update
+      KUTE.dom[tweenProp](this.element, tweenProp, this.valuesStart[tweenProp], this.valuesEnd[tweenProp], progress, this.options)
+   }
+   if (this.options.update) { this.options.update.call() } // fire the updateCallback
+   return true
+}
+
+export default KUTE
+
+
+
+
+
+

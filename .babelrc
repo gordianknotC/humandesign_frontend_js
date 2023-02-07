@@ -1,0 +1,53 @@
+{
+   "presets": [
+      [
+         "env",
+         {
+            "modules": false
+         }
+      ],
+      "stage-2"
+   ],
+   "plugins": [
+      "transform-runtime",
+      "transform-class-properties",
+      "syntax-flow",
+      "transform-flow-strip-types"
+   ],
+   "comments": false,
+   "env": {
+      "default": {
+         "presets": [
+            [
+               "env",
+               {
+                  "modules": false
+               }
+            ],
+            "stage-2"
+         ],
+         "plugins": [
+            "transform-runtime",
+            "transform-class-properties",
+            "syntax-flow",
+            "transform-flow-strip-types"
+         ]
+      },
+      "test": {
+         "presets": [
+            [
+               "env"
+            ],
+            "jest"
+         ],
+         "plugins": [
+            "transform-runtime",
+            "transform-es2015-modules-commonjs",
+            "transform-export-extensions",
+            "transform-class-properties",
+            "transform-flow-strip-types",
+            "syntax-flow"
+         ]
+      }
+   }
+}

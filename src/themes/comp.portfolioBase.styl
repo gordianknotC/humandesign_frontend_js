@@ -1,0 +1,1218 @@
+@import "../themes/app.variables.styl"
+@import "../themes/css_tips.pcss"
+@import "../../node_modules/jeet"
+
+navWidth = 60%
+navLeft  = navRight = (100% - navWidth) / 2
+text_green = #bfc200
+hoverColor = #69e9ff
+BT_device_laptopS = u_mediaBT(laptopS_h)
+
+exiaPortraitY=70
+
+//=========================
+//        Utility
+//-------------------------
+u_entryLinkBglize(color, alpha=1)
+   & .entryLink-title
+      background-color: rgba(red(color), green(color), blue(color), 0.72);
+      height: 5rem;
+      margin-left 0
+      border-radius: 1rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+u_alpharize(color, alpha=0.8)
+   rgba(red(color), green(color), blue(color), alpha)
+
+u_setClassID_bgs(nums)
+   n = 'none'
+   for el, value in nums
+      n += ', #portfolio' + el
+   {n}
+      background: value
+
+
+
+
+//=========================
+//       keyframes
+//-------------------------
+@keyframes animLoadedContentB
+   from
+      opacity: 0
+      transform: translate3d(0,200px,0)
+   to
+      opacity: 1
+@keyframes animLoadedContentC
+   from
+      opacity: 0
+      transform: translate3d(0,200px,0)
+   to
+      opacity: 1
+//=========================
+//       animation
+//-------------------------
+
+
+//=========================
+//       animation
+//-------------------------
+baseDecay = 0s
+.loadingBg
+   top: 0vh !important
+
+.loadedB
+   & .layout-PortfolioPage
+      animation animLoadedContentC 1s cubic-bezier(0.7,0,0.3,1) forwards
+   & .portfolioPage-nav
+      for name, num in '.portfolioPage-sceneContent, .unveil, .regularContent' '.portfolioPage-nav-container' '.portfolioPage-backward' '.portfolioPage-mainContent h3' '.portfolioPage-mainContent p' '.portfolioPage-sceneContent'
+         & {name}
+            opacity 0
+            animation animLoadedContentB 1s cubic-bezier(0.7,0,0.3,1) forwards
+            animation-delay baseDecay + 0.2s * num
+
+.layout-Main
+   .portfolioPage-loaded
+      & .yesLogo
+         & path, rect, polygon
+            transition: all 0.5s ease 0.3s;
+            fill: #bae13c
+   .portfolio_pendrive-loading, .portfolio_yes-loading
+      & .loadingBg, .loadingBg-portfolio_pendrive, .loadingBg-portfolio_yes
+         u_RadiusGradien(#bae13c, #9bbb32, #6c8324, #596a1b)
+      & .progressLogo
+         & .headerLoader-progress
+            stroke: #cdd173
+
+   .loadingBg-portfolio_petmate
+      u_RadiusGradien(#232627, #1a1c1d, #101112, #080909)
+
+   .portfolio_driftsand
+      & .yesLogo path
+         fill #007ac9
+
+   .portfolio_driftsand-loading
+      & .loadingBg, .loadingBg-portfolio_driftsand
+         u_RadiusGradien(#007ac9, #0066a8, #005389, #004069)
+      & .progressLogo
+         & .headerLoader-progress
+            stroke: #81b3c8
+
+   .portfolio_mercurius-loading
+      & .loadingBg, .loadingBg-portfolio_mercurius
+         u_RadiusGradien(#c77400, #a66100, #874f00, #693d00)
+      & .progressLogo
+         & .headerLoader-progress
+            stroke: #cbad84
+
+   .portfolio_exia, .portfolio_camouflage
+      & .yesLogo path
+         fill #a2c900
+
+   .portfolio_camouflage-loading
+      & .loadingBg, .loadingBg-portfolio_camouflage
+         u_RadiusGradien(#272522, #1f1d1b, #141311, #090908)
+
+   .portfolio_exia-loading
+      & .loadingBg, .loadingBg-portfolio_exia
+         u_RadiusGradien(#232627, #1a1c1d, #101112, #080909)
+
+   .portfolio_keyboard-loading
+      & .loadingBg, .loadingBg-portfolio_keyboard
+         u_RadiusGradien(#202B22, #161f16, #121d13, #101811)
+
+   .portfolio_mplamp
+      & .yesLogo path
+         fill #9e0010
+   .portfolio_mplamp-loading
+      & .loadingBg, .loadingBg-portfolio_mplamp
+         u_RadiusGradien(#9e0010, #a60013, #870010, #69000c)
+      & .progressLogo
+         & .headerLoader-progress
+            stroke: #dc9099
+
+   .portfolio_pluto
+      & .yesLogo path
+         fill #c9005f
+
+   .portfolio_pluto-loading
+      & .loadingBg, .loadingBg-portfolio_pluto
+         u_RadiusGradien(#c9005f, #a7004f, #760038, #5b002c)
+      & .progressLogo
+         & .headerLoader-progress
+            stroke: #d68c94
+
+   .portfolio_scorpion
+      & .yesLogo path
+         fill #c99f00
+   .portfolio_scorpion-loading
+      .loadingBg-portfolio_scorpion
+         u_RadiusGradien(#232627, #1a1c1d, #101112, #080909)
+
+
+   .portfolio_revolver
+      & .yesLogo path
+         fill #c99f00
+   .portfolio_revolver-loading
+      & .loadingBg, .loadingBg-portfolio_revolver
+         u_RadiusGradien( #9e0010, #85000f, #6e000c,#570009 )
+      & .progressLogo
+         & .headerLoader-progress
+            stroke: #c99f00
+//===============================
+//   styles
+//-------------------------------
+
+.taperRight
+   margin-top -6vh
+   u_taperZoidClip(direction:'right', tilt:'both' )
+
+.taperLeft
+   margin-top -6vh
+   u_taperZoidClip(direction:'left', tilt:'both' )
+
+
+.id-portfolio_driftsand, .id-portfolio_pluto, .id-portfolio_yes, .id-portfolio_revolver
+   background-color white
+.id-portfolio_scorpion, .id-portfolio_camouflage
+   background-color black
+.id-portfolio_keyboard, .id-portfolio_sketch
+   background-color #202b22
+.id-portfolio_pendrive, .id-portfolio_exia
+   background-color #747d80
+
+
+#portfolioDriftsand, #portfolioPluto, #portfolioYes, #portfolioRevolver
+   background-color white
+#portfolioScorpion, #portfolioCamouflage
+   background-color black
+#portfolioKeyboard
+   background-color #202b22
+#portfolioSketch
+   background-color #6d6d6d
+#portfolioPendrive
+   background-color #f4f6f3
+
+//=======================================
+//                layout
+//---------------------------------------
+//NOTE: ------------------------------- :
+//NOTE:        overall settings         :
+.layout-PortfolioPage
+   //width 100vw !important
+   height auto
+   min-height 100vh
+   //overflow-x hidden !important
+   //position relative !important
+   & #portfolioDriftsand, #portfolioPluto, #portfolioYes, #portfolioRevolver
+      background-color white
+   & #portfolioScorpion, #portfolioCamouflage
+      background-color black
+   & #portfolioKeyboard
+      background-color #202b22
+   & #portfolioSketch
+      background-color #6d6d6d
+   & #portfolioPendrive
+      background-color #747d80
+   & #portfolioExia
+      background-color #f4f6f3
+   & .entryLink
+      vertical-align: top
+      text-align center
+      height 100%
+      margin auto
+      margin-left -0.5rem
+      & svg
+         vertical-align: top !important
+         height 100%
+         margin auto
+         transform rotate(180deg) scale(0.9)
+      & h3, .entryLink-title
+         vertical-align: top !important
+         height 100%
+         font-weight 500
+   & .entryLink-hover
+      & .entryLogo-circle
+         fill hoverColor !important
+      & h3
+         color: hoverColor !important
+   & .parallaxScene-Bg
+      position relative
+      left -10%  //!important
+      height:101vh
+      background-size cover
+      background-position center center
+   & .parallaxScene
+      & div
+         width:100%
+         height:100%
+   & .parallaxScene-Fg
+      position absolute
+      background-position-x center
+      height: 120% !important
+   & .parallaxScene, .parallaxScene > section, .parallaxScene-Bg, .parallaxScene-Fg
+      height: 100%
+      background-repeat no-repeat !important
+   & .parallaxScene > section
+      height 120%
+      width 120%
+
+
+
+.portfolioPage-nav
+   & p
+      font-family Jura, "Noto Sans CJK TC Light"
+      color white
+   & h3
+      font-family Khand, "Noto Sans CJK TC Light"
+      margin-top 0
+      margin-bottom 1rem
+      font-weight 500
+      font-size 2.5rem
+      color text_green
+
+   position absolute
+   left 50%
+   width navWidth
+   min-width 27rem
+   height auto
+   z-index: 200
+   & .portfolioPage-nav-container
+      position: relative
+      left -50%
+   & .portfolioPage-backward
+      margin-top 8vh
+      vertical-align: middle
+      height 3rem
+      width 7rem
+      background-color u_alpharize(grey)
+      border-radius 2rem
+   & .portfolioPage-mainContent
+      padding 2rem
+      margin-top 2rem
+      min-height 20rem
+      height auto
+      width 100%
+      background-color u_alpharize(grey)
+      border-radius 2rem
+   @media (orientation: portrait)
+      width navWidth + 30
+      min-width: navWidth + 30
+      & .portfolioPage-mainContent
+         min-height 40vh
+
+
+.radiolampNav
+   & .portfolioPage-backward, .portfolioPage-mainContent
+      margin-top 10vh
+      background-color u_alpharize(white, 0.95)
+      & h3
+         color text_green
+      & p
+         color #636363
+      & .entryLogo-circle
+         fill text_green
+      & .entryLogo-arrow
+         fill white
+
+
+
+
+
+//NOTE: -------------------------------------------- :
+//NOTE:         sceneBackground                      :
+#portfolioBase
+   .portfolioPage-sceneBackground
+      @media(orientation:portrait)
+         height 121vw
+         & .sceneBg
+            background-position-x: 20%
+            background-size: cover
+         & .sceneFg
+            top 0
+            width 80%
+            background-size auto 80vw
+            background-position-x -20vw
+         & .sceneFg2
+            top 0
+            width 80%
+            background-size auto 70vw
+            background-position -50vw 60%
+.portfolioPage-sceneBackground
+   position relative
+   height 70vw
+   width 100vw
+   z-index 150
+   max-height 85vh
+   top 0
+   u_taperZoidClip(direction:'right', tilt:'bottom' )
+   & .sceneBg
+      background: url('../assets/refs/menu/radiolamp_bottom.jpg')
+      background-position-y: top
+      background-size: auto 100%
+   & .sceneFg
+      background: url('../assets/refs/menu/radiolamp_middle.png')
+      background-size:  auto 40vw
+      background-position: left center
+      height: 110% !important
+      left: 50%
+      top: -1%
+   & .sceneFg2
+      background: url('../assets/refs/menu/radiolamp_front.png')
+      background-size:  auto 35vw
+      background-position: left center
+      height: 110% !important
+      left: 10%
+      top: -1%
+   // NOTE: -------------------------------------- :
+   // NOTE:           p e t m a t e                :
+   & .petmateBg
+      background: url('../assets/refs/menu/petmate_bottom.jpg')
+      background-position-y: -11vh
+      background-size: cover
+   & .petmateFg
+      background: url('../assets/refs/menu/petmate_middle.png')
+      background-size: contain
+      background-position center bottom
+      height 70% !important
+      left:10%
+      top 14%
+   & .petmateFg2
+      background: url('../assets/refs/menu/petmate_front.png')
+      background-size: auto 94%
+      background-position: 92% bottom
+      height: 65% !important;
+      top 15%
+
+
+
+.portfolioPage-sceneContent
+   position relative
+   min-height 80vh
+   & img
+      width 100vw
+      margin-bottom -4px
+      position relative
+      z-index: 1
+   & .unveil
+      height 100vh
+      z-index: -1
+      transform-style: flat !important
+      & img
+         height 100vh
+         width auto
+   // NOTE: ------------------------------------------ :
+   // NOTE:           r a d i o l a m p                :
+   & .radiolampMain
+      width 100vw
+      background url('../assets/refs/portfolio_page/radiolightC.jpg')
+      background-size: cover
+      background-position-x center
+      margin-top -50vh
+
+   & .radioVideo
+      overflow hidden
+      height 100vh
+      & div#myvideo
+         width 100vw
+         height 119vh
+         @media(orientation: portrait)
+            width 130*(1600/900)vw
+            left -48*(1600/900)vw
+      & video#myvideo_html5_api
+         filter saturate(0.4)
+
+
+
+
+
+
+
+// NOTE: -------------------------------------- :
+// NOTE:           p e t m a t e, M P L a m p              :
+#portfolioPetmate, #portfolioMPLamp
+   text-align center
+   & .glossTarget
+      margin-top -35vh
+
+   & .lgGlassComp, .lgGlassComp-blurBg
+      height:100%
+      background url('../assets/refs/portfolio_page/petmate_main.jpg')
+      background-attachment: fixed
+      background-position-x center
+      filter: brightness(80%)
+
+   & .lgGlassComp-blurBg
+      filter: blur(10px)
+
+   & .lgGlassComp
+      u_taperZoidClip(direction:'left', tilt:'bottom' )
+
+   & .petmateMain, .mplampMain // petmateLgGloss
+      height 120vh
+      width 100vw
+      margin-top -12vh
+      background url('../assets/refs/portfolio_page/petmate_main.jpg')
+      background-size: auto
+      background-attachment fixed
+      background-position-x center
+
+   & .mplampMain
+      background url('../assets/refs/portfolio_page/mplamp_main.jpg')
+      background-size: auto
+      background-attachment fixed
+      background-position-x 10%
+
+   & .petmate_titleImg
+      z-index: 1000;
+      width: 100%;
+      position: absolute;
+      text-align: center;
+      top: 25vh;
+      left: 0px;
+      margin: 0 auto;
+
+   & .petmateNav, .mplampNav
+      position relative //NOTE: for working with zindex and transform property
+      z-index: 200
+      height: 40vh
+      margin-bottom -40vh //NOTE: set element height to zero
+      & .portfolioPage-nav
+         margin-top 64vh
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(white, 0.95)
+         & h3
+            color text_green
+         & p
+            color #636363
+         & .entryLogo-circle
+            fill text_green
+         & .entryLogo-arrow
+            fill white
+   & .mplampNav
+      height 32vh
+      & .portfolioPage-nav
+         margin-top 55vh
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(white, 0.95)
+         & h3
+            color #9e0010
+         & p
+            color #636363
+         & .entryLogo-circle
+            fill #9e0010
+         & .entryLogo-arrow
+            fill white
+
+
+   & .regularContent
+      margin-top -20vh
+      u_RadiusGradien(#0f0f0f, #1e2221, #262b2a, #2d3331)
+      & .petmateParallelA, .mplampParallelA
+         height 70vh
+         width 100vw
+         margin-top -50vh
+         background url('../assets/refs/portfolio_page/petmate_scene.jpg')
+         background-size: cover
+         background-position-x right
+      & .mplampParallelA
+         height 65.125vw
+         background url('../assets/refs/portfolio_page/mplamp_scene.jpg')
+         background-size: cover
+         background-position-x center
+      & .petmateParallelA
+         @media(orientation:portrait)
+            height 100vh
+            background-size: auto
+            background-position-x 90%
+      & .bgFiller
+         background url('../assets/refs/portfolio_page/petmate_scene.jpg')
+         background-repeat-y repeat
+      & .stack
+         width: 100vw
+         height 33.544921875vw
+         & img
+            width:50%
+            float:left
+         @media (orientation: portrait)
+            height 67.08984375vw
+            & img
+               width 100%
+      & img
+         position: relative
+         z-index 1
+
+#portfolioMPLamp
+   & .lgGlassComp, .lgGlassComp-blurBg
+      background url('../assets/refs/portfolio_page/mplamp_main.jpg')
+      background-attachment: fixed
+      background-position-x 10%
+      filter: brightness(88%)
+   & .lgGlassComp-blurBg
+      filter: blur(10px)
+   & .bgFiller
+      background-color black !important
+      background none !important
+
+
+
+
+
+// NOTE: ------------------------------------------------------------------------- :
+// NOTE:   K E Y B O A R D      +  M E R C U R R I U S  +  D R I F T S A N D       :
+// NOTE:   P L U T O            +  Y E S                +  P E N D R I V E         :
+// NOTE:   C A M O U F L A G E  +  S C O R P I O N      +  E X I A                 :
+// NOTE:   R E V O L V E R                                                         :
+#portfolioKeyboard, #portfolioMercurius, #portfolioDriftsand, #portfolioPluto, #portfolioYes, #portfolioPendrive, #portfolioCamouflage, #portfolioScorpion, #portfolioExia, #portfolioRevolver
+   & .portfolioPage-sceneBackground
+      background-color #2a2e2d
+   & .revolver-pageScene-bg
+      position absolute
+      left -15vw
+      height 100vh
+      width 130vw
+      top -20vw
+   & .revolver-pageScene-fg
+      height 100vh
+      max-height 896px
+      width 25vw
+      position absolute
+      right 0
+      margin-top -50%
+      top 50%
+   & .revolver-pageScene-fg2
+      background: url('../assets/refs/menu/revolver_right.png')
+      background-size: auto 100%
+      background-position 85vw center
+      height 100%
+      top:-18%
+      left 0
+   @media BT_device_laptopS
+      & .revolver-pageScene-fg2
+         background-position 42.5vw center
+
+   & .keyboard-pageScene-bg
+      background: url('../assets/refs/menu/keyboard_bottom.jpg')
+      background-position center
+      background-size: contain
+   & .keyboard-pageScene-fg
+      background: url('../assets/refs/menu/keyboard_middle.png')
+      background-size: 30%
+      left: 20%
+      top: 10%
+   & .keyboard-pageScene-fg2
+      background: url('../assets/refs/menu/keyboard_front.png')
+      background-size: contain
+      background-position left bottom
+      width 100%
+      bottom 10%
+      left 5%
+   & .keyboardNav, .mercuriusNav, .driftsandNav, .plutoNav, .yesNav, .pendriveNav, .camouflageNav, .scorpionNav, .exiaNav, .revolverNav
+      z-index: 200
+      height: 40vh
+      position relative   //NOTE: for working with zindex and transform property  :
+      margin-bottom -40vh //NOTE: set element height to zero                      :
+   & .mercuriusNav
+      height 250vh
+      & .portfolioPage-nav
+         margin-top 35vw
+         @media(orientation:portrait)
+            margin-top 10vw
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(#383d3a, 0.95)
+         & h3
+            color text_green
+         & p
+            color #c9c9c9
+         & .entryLogo-circle
+            fill text_green
+         & .entryLogo-arrow
+            fill #3a3d3b
+   & .driftsandNav
+      & .portfolioPage-nav
+         margin-top 25vw
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(white, 0.95)
+         & h3
+            color #007ac9
+         & p
+            color #007ac9
+         & .entryLogo-circle
+            fill #007ac9
+         & .entryLogo-arrow
+            fill white
+   & .plutoNav
+      & .portfolioPage-nav
+         margin-top 25vw
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(white, 0.95)
+         & h3
+            color #c9005f
+         & p
+            color #434544
+         & .entryLogo-circle
+            fill #c9005f
+         & .entryLogo-arrow
+            fill white
+   & .yesNav, .pendriveNav, .exiaNav
+      & .portfolioPage-nav
+         margin-top 25vw
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(white, 0.95)
+         & h3
+            color #a2c900
+         & p
+            color #49545b
+         & .entryLogo-circle
+            fill #a2c900
+         & .entryLogo-arrow
+            fill white
+   & .exiaNav
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(#343434, 0.95)
+         & h3
+            color #a2c900
+         & p
+            color #97adb9
+         & .entryLogo-circle
+            fill #a2c900
+         & .entryLogo-arrow
+            fill #343434
+   & .camouflageNav, .scorpionNav
+      & .portfolioPage-nav
+         margin-top 25vw
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(#20170d, 0.95)
+         & h3
+            color #a2c900
+         & p
+            color #acb2bb
+         & .entryLogo-circle
+            fill #a2c900
+         & .entryLogo-arrow
+            fill #20170d
+
+
+   & .scorpionNav
+      height 300vh
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(#0f0f10, 0.95)
+         & h3
+            color #c99f00
+         & .entryLogo-circle
+            fill #C99F00
+         & .entryLogo-arrow
+            fill #0f0f10
+
+   & .revolverNav
+      height 100vw
+      & .portfolioPage-nav-container
+         margin-top 36vw
+      & .portfolioPage-backward, .portfolioPage-mainContent
+         background-color u_alpharize(#870013, 0.95)
+         & h3
+            color #c99f00
+         & p
+            color #bdc3cd
+         & .entryLogo-circle
+            fill #C99F00
+         & .entryLogo-arrow
+            fill #870013
+
+   & .mercuriusBg, .driftsandBg, .plutoBg, .yesBg, .pendriveBg, .camouflageBg, .scorpionBg, .exiaBg, .revolverBg
+      z-index 0
+      top 0
+      width 100vw
+      height 363.9097vw
+      position absolute
+      background url('../assets/refs/portfolio_page/merrcuriusPageA.jpg')
+      background-size cover
+   & .driftsandBg
+      top 60vh
+      height 263.2vw
+      background url('../assets/refs/portfolio_page/driftsandPageA.jpg')
+      background-size contain
+   & .plutoBg
+      top 60vh
+      width 100vw
+      height (100*3471/1590)vw
+      background url('../assets/refs/portfolio_page/pluto_bg.jpg')
+      background-size contain
+      background-repeat:no-repeat
+   & .plutoContentA
+      z-index: 1
+      margin-top 30vw
+      width 100vw
+      height (100*2270/1590)vw
+      background url('../assets/refs/portfolio_page/pluto_front.png')
+      background-size: contain
+      background-position center top
+      background-repeat no-repeat
+   & .yesBg
+      top 60vh
+      width 100vw
+      height (100*3700/1590)vw
+      background url('../assets/refs/portfolio_page/yes_bg.jpg')
+      background-size contain
+      background-repeat:no-repeat
+   & .yesContentA
+      z-index: 1
+      position absolute
+      top 45vw
+      width 100vw
+      height (100*973/1590)vw
+      background url('../assets/refs/portfolio_page/yes_front.png')
+      background-size: contain
+      background-position center top
+      background-repeat no-repeat
+      @media(orientation: portrait)
+         top 55vw
+         width @width *1.3
+         height @height * 1.3
+   & .yesContentB
+      z-index: 10
+      position absolute
+      top (45+100*973/1590)vw
+      width 100vw
+      height (100*357/1313)vw
+      background url('../assets/refs/portfolio_page/yes_front2.png')
+      background-size: contain
+      background-position center top
+      background-repeat no-repeat
+      @media(orientation: portrait)
+         top (55 +100*973/1590)vw
+         width @width *1.3
+         height @height * 1.3
+   & .pendriveBg
+      top 0
+      width 100vw
+      height 50vh
+      background url('../assets/refs/portfolio_page/usb_main.jpg')
+      background-size cover
+      background-position: center
+      background-repeat: no-repeat
+      @media(orientation:portrait)
+         height 200vw
+         background-color grey
+      & .regularContent
+         @media(orientation:portrait)
+            margin-top 40rem
+            background-color grey
+   // NOTE: -------------------------------------------
+   & #camouflageBgA > svg
+      position absolute
+      z-index 1
+      background none
+      @media(orientation: portrait)
+         top 30rem
+   & .camouflageBg
+      @media(orientation: portrait)
+         background-color black
+         background none
+   & .camouflageContentA
+      position absolute
+      width: 100vw
+      height (100 * 3503/1590)vw
+      top ( 100 * 2364/1590 - 10)vw
+      z-index: 1
+      transform: translateY(0)
+      background url('../assets/refs/portfolio_page/camouflagePageD.jpg')
+      background-size: contain
+      background-position-x left
+      background-repeat no-repeat
+      @media(orientation: portrait)
+         top 120vw  +  ( 100 * 2364/1590 - 10)vw
+   & .camouflageContentB, .scorpionContentB
+      width 100vw
+      z-index: 2
+      position absolute
+      top (30 + 100 * 2364/1590)vw
+      height (100 * 1101/1418)vw
+      transform: translateY(0)
+      background url('../assets/refs/portfolio_page/camouflagePageB.png')
+      background-size contain
+      background-position-x center
+      background-repeat no-repeat
+   & .camouflageContentB
+      @media(orientation: portrait)
+         top (30 + 100 * 2364/1590 + 120)vw
+   & .camouflageContentC, .camouflageContentD
+      width 100vw
+      z-index: 3
+      position absolute
+      top (40 + 30 + 100 * 2364/1590 + 100 * 1101/1418 )vw
+      height 50vw
+      transform: translateY(0)
+      background url('../assets/refs/portfolio_page/camouflagePageC.png')
+      background-size contain
+      background-position-x left
+      background-repeat no-repeat
+      @media(orientation: portrait)
+         top (40 + 30 + 100 * 2364/1590 + 100 * 1101/1418 + 120 )vw
+   & .camouflageContentD
+      z-index 1
+      top: (346 - 10)vw
+      height (100*2789/1590)vw
+      background url('../assets/refs/portfolio_page/camouflagePageF.jpg')
+      background-size contain
+      @media(orientation: portrait)
+         top (346 - 10 + 120)vw
+   & .camouflageContentE
+      z-index: 2
+      position absolute
+      top: 346vw
+      left 27vw
+      width 76vw
+      @media(orientation: portrait)
+         top (346 + 120)vw
+   & .scorpionBg
+      width 100vw
+      height (100* 2862/1590)vw
+      top (-12* 2862/1590)vw
+      background url('../assets/refs/portfolio_page/scorpionPageA.jpg')
+      background-size cover
+      @media(orientation: portrait)
+         height (120* 2862/1590)vw
+   & .scorpionContentA
+      position absolute
+      width 100vw
+      height (100 * 1222/1672)vw
+      left 0
+      top (-12* 2862/1590 + 100* 2862/1590)vw
+      @media(orientation: portrait)
+         top (140* 2862/1590)vw
+   & .scorpionContentB
+      height (100*451/1590)vw
+      top (-12* 2862/1590 + 100* 2862/1590 - 50*451/1590)vw
+      background url('../assets/refs/portfolio_page/scorpionPageB.png')
+      background-repeat: no-repeat
+      background-size:contain
+      background-position-x 80%
+      @media(orientation: portrait)
+         top ( 2 * 2862/1590 + 120*2862/1590   )vw
+         background none
+   & .scorpionContentC
+      position: absolute
+      z-index: 1
+      height (100*1359/1432)vw
+      width 100vw
+      top (-12* 2862/1590 + 100*2862/1590 + 100*1222/1672 )vw
+      background url('../assets/refs/portfolio_page/scorpionPageD.png ')
+      background-repeat: no-repeat
+      background-position-x center
+      background-size contain
+      @media(orientation: portrait)
+         top ( 2 * 2862/1590 + 120*2862/1590 + 140*1222/1672 )vw
+   & .scorpionContentE
+      position:absolute
+      z-index -2
+      width 100vw
+      height (100*5455/1590)vw
+      top (-12* 2862/1590 + 100*2862/1590 + 40*1222/1672 )vw
+      background url('../assets/refs/portfolio_page/scorpionPageE.jpg')
+      background-repeat: no-repeat
+      background-size contain
+      @media(orientation: portrait)
+         top (-12* 2862/1590 + 120*2862/1590 + 30*1222/1672 )vw
+         height (120*5455/1590)vw
+         background-size cover
+   & #exiaBgA
+      position absolute
+      z-index 1
+      top (-8*4523/1590)vw
+      width 100vw
+      height (100*4523/1590)vw
+      @media(orientation:portrait)
+         top (exiaPortraitY)vw !important
+         width @width*1.3
+         height @height*1.3
+   & .exiaBg
+      background none
+      z-index 1
+   & .exiaContentA
+      position absolute
+      width 100vw
+      height (35*1040/502)vw
+      top (45)vw
+      background url('../assets/refs/portfolio_page/exia_frontA.png')
+      background-repeat no-repeat
+      background-position-x left
+      background-size: contain
+      @media(orientation:portrait)
+         top @top + exiaPortraitY
+         width @width*1.3
+         height @height*1.3
+   & .exiaContentB
+      position absolute
+      z-index 1
+      top (45 + 35*1040/502 + 20)vw
+      width 100vw
+      height (100*1594/1483)vw
+      @media(orientation:portrait)
+         left -15vw
+         top @top + exiaPortraitY
+         width @width*1.3
+         height @height*1.3
+   & .exiaContentC
+      position absolute
+      top (45 + 35*1040/502 + 20 + 65*1594/1483 )vw
+      width 100vw
+      height (100*2565/1590)vw
+      background url('../assets/refs/portfolio_page/exia_bgB.jpg')
+      background-repeat no-repeat
+      background-position left top
+      background-size contain
+      u_taperZoidClip(direction:'left', tilt:'top', shortLength:56 )
+      @media(orientation:portrait)
+         top @top + exiaPortraitY
+         width @width*1.3
+         height @height*1.3
+   & .exiaContentD
+      position absolute
+      top (45 + 35*1040/502 + 20 + 75*1594/1483 + 35*2565/1590 )vw
+      width 100vw
+      height (50*1713/1031)vw
+      background url('../assets/refs/portfolio_page/exia_frontC.png')
+      background-repeat no-repeat
+      background-position right top
+      background-size contain
+      @media(orientation:portrait)
+         right 0
+         top @top + exiaPortraitY
+         width @width*1.3
+         height @height*1.3
+   & .revolverBg
+      background none
+      background-color white
+
+   & .mercuriusBg
+      @media(orientation:portrait)
+         height 124rem //1.6 * 363.9097vw
+         background-repeat repeat-y
+         background-size 35rem
+         background-position-x center
+
+   & .regularContent
+      margin-top 165vw
+      & .taperRight
+         margin-top -10vh
+      & .keyboardContentA, .mercuriusContentA
+         width: 100vw
+         height: 200vw
+         background url('../assets/refs/portfolio_page/keyboardA.jpg')
+         background-size: cover
+         background-position-x center
+      & .keyboardContentB, .keyboardContentC, .mercuriusContentB, .mercuriusContentC
+         width 100vw
+         height  100vw
+         z-index: 0
+         margin-top -50vh
+         background url('../assets/refs/portfolio_page/keyboardE.jpg')
+         background-size: cover
+         background-position center top
+         @media(orientation: portrait)
+            margin-top -5vh
+      & .keyboardContentC
+         z-index: 1
+         background url('../assets/refs/portfolio_page/keyboardD.jpg')
+         background-size: cover
+         background-position center top
+         @media(orientation: portrait)
+            height 120vw
+            background-size contain
+            margin-top -60vh
+      & .mercuriusContentA
+         z-index 1
+         width: 100vw
+         height 51vw
+         margin-top -50vw
+         transform: translateY(0)
+         background url('../assets/refs/portfolio_page/merrcuriusPageB.png')
+         background-size: contain
+         background-position-x left
+         background-repeat no-repeat
+         @media(orientation:portrait)
+            height 16rem
+            margin-top -12rem
+      & .mercuriusContentC
+         z-index: 0
+         width 100vw
+         height 51.37844611528822vw
+         transform: translateY(0)
+         background url('../assets/refs/portfolio_page/merrcuriusPageC.png')
+         background-size: cover
+         background-position center top
+         clip-path: polygon(0 0, 100% 29%, 100% 82%, 0 100%)
+         @media(orientation:portrait)
+            height 16rem
+            margin-top 50rem
+            top 10rem
+      & .mercuriusContentB
+         z-index: 0
+         margin-top 53vw
+         width 100vw
+         height 55vw
+         background url('../assets/refs/portfolio_page/merrcuriusPageE.png')
+         background-size: contain
+         background-position right top
+         background-repeat no-repeat
+
+   & .revolverRegular
+      margin-top 36vw
+      & .revolverContentA
+         position absolute
+         z-index 11
+         top (36 - 10*2909/1590)vw
+         width 100vw
+         height (100*2909/1590)vw
+         background none
+      & img
+         z-index 3
+      & .pageB
+         position:absolute
+         top 135vw
+         z-index 2
+      & .pageC
+         position:absolute
+         width 100vw
+         height (100*1118/1590)vw
+         top (135 + 100* 852/1590 )vw
+         z-index 2
+      & .revolverContentB
+         position absolute
+         z-index -1
+         top (36 - 10*2909/1590 + 100*2909/1590 + 30 )vw
+         width 100vw
+         height (100*2104/1590)vw
+         background none
+      & .revolverContentC
+         position absolute
+         z-index -2
+         top (36 - 10*2909/1590 + 100*2909/1590 + 30 + 75*2104/1590 )vw
+         width 100vw
+         height (100*1465/1590)vw
+         background none
+      & .pageF
+         position:absolute
+         top (36 - 10*2909/1590 + 100*2909/1590 + 30 + 75*2104/1590 + 70*1465/1590 )vw
+         z-index -3
+      & .revolverContentD
+         position absolute
+         z-index -2
+         top (36 - 10*2909/1590 + 100*2909/1590 + 30 + 75*2104/1590 + 70*1465/1590 + 100 * 1811/1590)vw
+         width 100vw
+         height (100*1515/1590)vw
+         background none
+      & .pageH
+         position:absolute
+         top (36 - 10*2909/1590 + 100*2909/1590 + 30 + 75*2104/1590 + 70*1465/1590 + 100 * 1811/1590 + 50*1515/1590 )vw
+         z-index -3
+
+   & .driftsandContentA
+      z-index: 1
+      margin-top 30vw
+      width 100vw
+      height 65vw
+      background url('../assets/refs/portfolio_page/driftsandPageB.png')
+      background-size: contain
+      background-position left top
+      background-repeat no-repeat
+   & .driftsandContentB
+      z-index: 1
+      margin-top 11vw
+      width 100vw
+      height 130vw
+      background url('../assets/refs/portfolio_page/driftsandPageC.png')
+      background-size: contain
+      background-position left top
+      background-repeat no-repeat
+   & .driftsandContentC
+      z-index: 10
+      margin-top -140vw
+      width 100vw
+      height 70vw
+      position relative
+      background url('../assets/refs/portfolio_page/driftsandPageD.png')
+      background-size: contain
+      background-position right top
+      background-repeat no-repeat
+   & .driftsandBg, .plutoBg, .yesBg
+      & .regularContent
+         margin-top 97.2vw
+   & .pendriveBg
+      & .regularContent
+         background-color black
+         margin-top 80vh
+   & .camouflageBg
+      & .regularContent
+         background-color black
+         margin-top 140vw
+
+// NOTE: ---------------------------------------- :
+// NOTE:             S K E T C H                  :
+#portfolioSketch, #portfolioKeyboard
+   text-align center
+   & .portfolioPage-sceneBackground
+      height 85vw
+   // NOTE: SceneBackground
+   & .sketch-pageScene-bg
+      background: url('../assets/refs/portfolio_page/sketchParaC.jpg')
+      background-position: center 76%
+      background-size: 100% auto
+      left -2vw
+   & .sketch-pageScene-fg
+      background: url('../assets/refs/portfolio_page/sketchParaB.png')
+      background-size:  95vw auto
+      background-position: center 65%
+      left 5%
+   & .sketch-pageScene-fg2
+      background: url('../assets/refs/portfolio_page/sketchParaA.png')
+      background-size: 35%
+      background-position: left center
+      left:48%
+      top -10%
+   // NOTE: scene Nav
+   & .sketchNav, .keyboardNav
+      position relative //NOTE: for working with zindex and transform property
+      z-index: 200
+      height: 40vh
+      margin-bottom -40vh //NOTE: set element height to zero
+   & .portfolioPage-nav
+      margin-top 34vh
+   & .portfolioPage-backward, .portfolioPage-mainContent
+      background-color u_alpharize(#333b37, 0.95)
+      & h3
+         color text_green
+      & p
+         color #c2c2c2
+      & .entryLogo-circle
+         fill text_green
+      & .entryLogo-arrow
+         fill #333b37
+
+   & .regularContent
+      margin-top 20vh
+      & .unveil
+         position:relative
+         margin-top -50vh
+         z-index 1
+      & .sketchContentA
+         width: 100vw
+         height: 101.9496855345912vw
+         background url('../assets/refs/portfolio_page/sketchImageC.jpg')
+         background-size: cover
+         background-position-x center
+      & .sketchContentB
+         width 100vw
+         height (1403 / 1590) * 100vw
+         z-index: 0
+         margin-top -100vh
+         background url('../assets/refs/portfolio_page/sketchImageB.jpg')
+         background-size: cover
+         background-position center top
+         @media (orientation: portrait)
+            height 160vw
+            margin-top -80vh
+            background-size 80vh
+            background-repeat no-repeat

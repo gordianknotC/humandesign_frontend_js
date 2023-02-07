@@ -1,0 +1,30 @@
+@custom-selector :--heading h1, h2
+
+.test
+  margin:
+  top: 0
+  left: 0
+  font: 11px
+  size: 16px
+  weight: 300
+
+a:--any-link
+  color: blue
+a:--any-link
+  &.is-disabled
+    color: gray
+
+article :--heading
+  color: #000
+
+:root
+  --red: #F00
+
+body
+  color: var(--red)
+
+h1
+  font-size:77px
+  size:444px
+
+ 

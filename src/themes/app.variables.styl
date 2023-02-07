@@ -1,0 +1,242 @@
+
+
+
+// This file is included in the build if src/main.js imports
+// either app.mat.styl or app.ios.styl.
+// Check "DEFAULT / CUSTOM STYLE" in src/main.js
+
+// App Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Stylus variables found in Quasar's source Stylus files. Setting
+// variables before Quasar's Stylus will use these variables rather than
+// Quasar's default Stylus variable values. Stylus variables specific
+// to the themes belong in either the app.ios.styl or app.mat.styl files.
+
+
+// App Shared Color Variables
+// --------------------------------------------------
+// It's highly recommended to change the default colors
+// to match your app's branding.
+
+
+$primary   = #027be3
+$secondary = #26A69A
+$tertiary  = #555
+$neutral   = #E0E1E2
+$positive  = #21BA45
+$negative  = #DB2828
+$info      = #31CCEC
+$warning   = #F2C037
+$light     = #f4f4f4
+$dark      = #333
+$faded     = #777
+$loadingBlue = #41b8ea
+$linkBlue = #69e9ff
+$transparent = rgba(0,0,0,0)
+
+$text-color        = lighten(black, 17%)
+$background-color  = white
+$link-color        = lighten($primary, 25%)
+$link-color-active = $primary
+
+// TODO: set following variables by Stylus javascript API
+iphone5_w  = 320px
+nexus5_w   = 360px
+iphone6_w  = 375px
+iphone6p_w = 414px
+nexus7_w   = 600px
+ipad_w     = 768px
+nexus10_w  = 800px
+mobile_S   = 320px  // from 0   to 320
+mobile_M   = 375px  // from 321 to 375
+mobile_L   = 480px  // from 376 to 425
+tablet     = 768px  // from 426 to 768
+laptop_S   = 1024px // from 769 to 1024
+laptop_L   = 1440px // from 1025 >
+DEVICES     = mobile_S, mobile_M, mobile_L, tablet, laptop_S, laptop_L
+headerZ     = 100000
+deviceInfoZ = headerZ*10
+
+iphone5_h   = 568px
+iphone6_h   = 667px
+iphone6p_h  = 736px
+ipad_h      = 1024px
+nexus7_h    = 960px
+nexus10_h   = 1280px
+tablet_h  = 768px
+laptopS_h = 1024px
+laptopL_h = 1440px
+
+u_genMedia(type, size)
+  "all and (" + type  + "-width: " + size + ")"
+
+// NOTE: device media query in portrait mode .....
+device_iphone5  =  "all and (max-width: " +  iphone5_w  + ")"
+device_nexus5   =  "all and (max-width: " +  nexus5_w   + ")"
+device_iphone6  =  "all and (max-width: " +  iphone6_w  + ")"
+device_iphone6p =  "all and (max-width: " +  iphone6p_w + ")"
+device_nexus7   =  "all and (max-width: " +  nexus7_w   + ")"
+device_ipad     =  "all and (max-width: " +  ipad_w     + ")"
+device_nexus10  =  "all and (max-width: " +  nexus10_w  + ")"
+device_mobile_S =  "all and (max-width: " +  mobile_S   + ")"
+device_mobile_M =  "all and (max-width: " +  mobile_M   + ")"
+device_mobile_L =  "all and (max-width: " +  mobile_L   + ")"
+device_tablet   =  u_genMedia( "max", 768px )
+device_laptop_S =  u_genMedia( "max", 1024px )
+device_laptop_L =  u_genMedia( "max", 1440px )
+
+// NOTE: device media query in landscape mode .....
+L_device_iphone5  =  "all and (max-width: " +  iphone5_h  + ")"
+L_device_iphone6  =  "all and (max-width: " +  iphone6_h  + ")"
+L_device_iphone6p =  "all and (max-width: " +  iphone6p_h + ")"
+L_device_nexus7   =  "all and (max-width: " +  nexus7_h   + ")"
+L_device_ipad     =  "all and (max-width: " +  ipad_h     + ")"
+L_device_nexus10  =  "all and (max-width: " +  nexus10_h  + ")"
+L_device_mobile_S =  "all and (max-width: " +  iphone5_h  + ")"
+L_device_mobile_M =  "all and (max-width: " +  iphone6_h  + ")"
+L_device_mobile_L =  "all and (max-width: " +  iphone6p_h + ")"
+L_device_tablet   =  u_genMedia( "max", 768px )
+L_device_laptop_S =  u_genMedia( "max", 1024px )
+L_device_laptop_L =  u_genMedia( "max", 1440px )
+
+u_gridThickness = 4px
+u_gridDebugger = true // false to turn off gridDebugger
+
+
+
+
+
+u_justify(element, lineHeight=0.2rem, paddingTop=0.4rem)
+  & {element}
+    text-align justify
+    line-height lineHeight !important
+    padding-top paddingTop !important
+  & {element}::after
+    content ''
+    width 100%
+    display inline-block
+    height: 0
+    line-height: 0
+
+u_size(a, b)
+  max-width  a
+  min-width  b
+
+u_bg(img)
+  background-image  url(img)
+
+u_grid(id=false, class=false, color=#000, label=false)
+  if u_gridDebugger
+    if id
+      instance = "#" + id
+    if class
+      instance = "." + class
+    {instance}
+      border solid u_gridThickness color
+    if label != false
+      {instance}
+        position  relative
+      {instance}::before, {instance}::after
+        font-size 1em
+        content  label !important
+        background  color
+        color  white
+        position  absolute
+      {instance}::before
+        top 0
+        padding 3px
+      {instance}::after
+        bottom 0
+        right 0
+        padding 3px
+
+u_clearFix(id=false, class=false)
+  if class
+    instance = "." + class
+  if id
+    instance = "#" + id
+  {instance}::before, {instance}::after
+    content  ""
+    display table
+  {instance}::after
+    clear both
+  {instance}
+    zoom 1
+
+
+u_mediaLT(size, mode='width')
+  'all and (max-'+mode+':'+size+')'
+u_mediaBT(size, mode='width')
+  'all and (min-'+mode+':'+size+')'
+// NOTE: Element Query Utility // lower than
+u_LT(size, mode='width' )
+  '[max-' + mode + '~="' + size + '"]'
+// NOTE: Element Query Utility // bigger than
+u_BT(size, mode='width' )
+  '[min-width~="' + size + '"]'
+
+
+
+u_span(spanRatios, order=1, addLbound=0, addRbound=0, direction="horizontal", alignment='left')
+  current = 1
+  sumRatios = sum(spanRatios)
+  acc = 0
+  for num in spanRatios
+    if current == order
+      if direction == "horizontal"
+        position  absolute
+        width  100*(num/sumRatios)vw + addLbound + addRbound
+        if alignment == 'left'
+          left  100*(acc/sumRatios)vw - addLbound
+        else
+          left  (100*(acc/sumRatios)vw - addLbound) + ((100*(num/sumRatios) + addLbound + addRbound)/2)
+          margin-left  -1 * ((100*(num/sumRatios)vw + addLbound + addRbound)/2)
+
+      if direction == 'vertical'
+        position  absolute
+        height  100*(num/sumRatios)vh + addLbound + addRbound
+        if alignment == 'left'
+          top  100*(acc/sumRatios)vh - addLbound
+        else
+          top  (100*(acc/sumRatios)vh - addLbound) + ((100*(num/sumRatios) + addLbound + addRbound)/2)
+          margin-top  -1 * ((100*(num/sumRatios)vh + addLbound + addRbound)/2)
+
+    acc += num
+    current += 1
+
+u_RadiusGradien(c1, c2, c3, c4, isimportant=false)
+  importantString = isimportant ? !important : unquote("")
+  background   -moz-radial-gradient( circle farthest-corner, c1 0%, c2 27.13%, c3 79.21%, c4 100%) importantString
+  background   -webkit-radial-gradient( circle farthest-corner, c1 0%, c2 27.13%, c3 79.21%, c4 100%) importantString
+  background   -webkit-gradient(radial,50.69% 52.63% ,0 , 50.69% 52.63%, 630.01 ,color-stop(0,c1 ),color-stop(0.2713,c2 ),color-stop(0.7921,c3 ),color-stop(1,c4 )) importantString
+  background   -o-radial-gradient( circle farthest-corner, c1 0%, c2 27.13%, c3 79.21%, c4 100%) importantString
+  background   -ms-radial-gradient( circle farthest-corner, c1 0%, c2 27.13%, c3 79.21%, c4 100%) importantString
+  background   radial-gradient(circle farthest-corner,  c1 0%, c2 27.13%, c3 79.21%, c4 100%) importantString
+  -ms-filter  "progid:DXImageTransform.Microsoft.Alpha(Stlye=2)" importantString
+  filter  "progid:DXImageTransform.Microsoft.Alpha(Stlye=2)" importantString
+
+u_LinearGradien(c1, c2, c3, isimportant=false)
+  importantString = isimportant ? !important : unquote("")
+  background  -moz-linear-gradient(left, c1 0%, c2 50%, c3 100%) importantString /* FF3.6-15 */
+  background  -webkit-linear-gradient(left, c1 0%,c2 50%,c3 100%) importantString /* Chrome10-25,Safari5.1-6 */
+  background  linear-gradient(to right, c1 0%,c2 50%,c3 100%) importantString /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter  "progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#007db9e8',GradientType=0 )" importantString /* IE6-9 */
+
+u_taperZoidClip(direction='left', shortLength=88, tilt="both")
+  shiftment = (100 - shortLength)/2%
+  if tilt == 'both'
+    lt = shiftment ;rb = shiftment
+  else if  tilt == 'top' or tilt == 'left'
+    lt = shiftment   ; rb = 0%
+  else if tilt == 'bottom' or tilt == 'right'
+    rb = shiftment   ; lt = 0%
+
+  if direction == 'left'
+    clip-path: polygon(0 lt, 100% 0, 100% 100%, 0 100 - rb)
+  else if direction == 'top'
+    clip-path: polygon( lt 0%, 100 - rb 0%, 100% 100%, 0% 100%)
+  else if direction == 'bottom'
+    clip-path: polygon(0 0, 100% 0, 100 - rb 100%, lt 100%)
+  else
+    clip-path: polygon(0 0, 100% lt, 100% 100 - rb, 0 100%)

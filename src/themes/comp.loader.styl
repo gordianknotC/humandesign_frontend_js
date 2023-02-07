@@ -1,0 +1,272 @@
+@import "../themes/app.variables.styl"
+@import "../themes/css_tips.pcss"
+@import "../../node_modules/jeet"
+
+
+// NOTE:                                                                          :
+// NOTE: relationship between "animation" and "animation-delay" must be a         :
+// NOTE: "animation"-"animation-delay" sequence or it will not work properly      :
+//===============================
+// keyframes
+//-------------------------------
+$headerLoader-marginTop = 30vh
+
+@keyframes animShow
+   from
+      opacity 0
+   to
+      opacity 1
+
+// NOTE: intial loading animation
+@keyframes animLoadingHeaderBg-initial
+   to
+      transform: translate3d(0,0,0)
+
+@keyframes animLoadingHeaderLogo-intial
+   from
+      opacity: 0
+      transform: translate3d(0,37vh,0) scale3d(0.65,0.65,1)
+   to
+      opacity 1
+      transform: translate3d(0,0,0)
+
+@keyframes animLoadingHeaderLoader-intial
+   from
+      opacity: 0
+      transform: translate3d(0,37vh,0) scale3d(0.65,0.65,1)
+   to
+      opacity 1
+      transform: translate3d(0,0 ,0)
+
+// NOTE: intial loaded animation
+@keyframes animLoadedHeaderBg-intialLoaded
+   /* translate3d (x, y, z)*/
+   to
+      transform: translate3d(0,-100vh,0)
+
+@keyframes animLoadedHeaderLogo-intialLoaded
+   to
+      transform: translate3d(0,100vh - $headerLoader-marginTop ,0) translate3d(0,2vh,0) scale3d(0.65,0.65,1)
+
+@keyframes animLoadedHeaderLoader-intialLoaded
+   to
+      opacity: 0
+      transform: translate3d(0,-100%,0) scale3d(0.3,0.3,1)
+
+// NOTE: inpage loading animation
+@keyframes animLoadingHeaderBg-inPage
+   from
+      transfrom: translate3d(0,0,0)
+   to
+      transform: translate3d(0,100vh,0)
+@keyframes animLoadingHeaderLogo-inPage
+   from
+      transform: translate3d(0,100vh - $headerLoader-marginTop ,0) translate3d(0,2vh,0) scale3d(0.65,0.65,1)
+   to
+      opacity 1
+      transform: translate3d(0,100vh ,0) translate3d(0,2vh,0) //scale3d(0.65,0.65,1)
+
+@keyframes animLoadingHeaderLoader-inPage
+   from
+      opacity: 0
+      transform: translate3d(0,137vh,0) scale3d(0.3,0.3,1)
+   to
+      opacity: 1
+      transform: translate3d(0, 100vh,0) //scale3d(0.3,0.3,1)
+
+// NOTE: inpage loaded animation
+@keyframes animLoadedHeaderBg-inPageLoaded
+   from
+      transform: translate3d(0,100vh,0)
+   to
+      transform: translate3d(0,0,0)
+
+@keyframes animLoadedHeaderLogo-inPageLoaded
+   from
+      opacity 1
+      transform: translate3d(0,100vh ,0) translate3d(0,2vh,0) //scale3d(0.65,0.65,1)
+   to
+      transform: translate3d(0,100vh - $headerLoader-marginTop ,0) translate3d(0,2vh,0) scale3d(0.65,0.65,1)
+
+@keyframes animLoadedHeaderLoader-inPageLoaded
+   from
+      opacity: 1
+      transform: translate3d(0, 100vh,0) //scale3d(0.3,0.3,1)
+   to
+      opacity 0
+      transform: translate3d(0, 100vh - $headerLoader-marginTop , 0) scale3d(0.3,0.3,1)
+
+
+@keyframes animLoadedContent
+   from
+      opacity: 0
+      transform: translate3d(0,200px,0)
+   to
+      opacity: 1
+
+//===============================
+//   styles
+//-------------------------------
+svg
+   margin: 0 auto
+   display:block
+
+.yesLogo
+   u_size(15%, 180px)
+   & path, rect, polygon
+      fill: $loadingBlue
+
+.hidden
+   display: none
+
+.loadingBg
+   top: -($headerLoader-marginTop)
+   position:absolute
+   opacity 0
+   z-index -1
+   width 100vw
+   height 100vh
+   u_RadiusGradien(#232627, #1a1c1d, #101112, #080909)
+
+
+.progressLogo
+   margin-top:10vh
+   & path
+      fill: none
+      stroke-width: 10
+   & .headerLoader-circle
+      stroke: white
+   & .headerLoader-progress
+      stroke: $loadingBlue
+      -webkit-transition: stroke-dashoffset 0.3s
+      transition: stroke-dashoffset 0.3s
+
+.headerLoader-device
+   position:fixed
+   text-align center
+   bottom:0
+   z-index:deviceInfoZ
+   height:12px
+   & p
+      font-family Jura
+      font-size: 12px
+      line-height:12px
+      font-weight: 600
+      color:black
+      margin-top:0px
+
+
+// =========================================
+//    animatin states
+//------------------------------------------
+// NOTE: loading states
+.loading
+   & .yesLogo
+      opacity: 1
+      animation: animLoadingHeaderLogo-intial 1.2s cubic-bezier(0.7,0,0.3,1) both;
+   & .progressLogo
+      opacity: 1
+      animation: animLoadingHeaderLoader-intial 1.2s cubic-bezier(0.7,0,0.3,1) both;
+      animation-delay: .4s
+      & prev
+         animation: animShow 1.2s cubic-bezier(0.7,0,0.3,1) both;
+         animation-delay: 2s
+
+.loading-about, .siteLoading-about, .loading-portfolio, .siteLoading-portfolio, .loading-blog, .siteLoading-blog, .loading-portfolioPage, .siteLoading-portfolioPage
+   & .loadingBg
+      opacity 1
+      animation: animLoadingHeaderBg-inPage 1s cubic-bezier(0.7,0,0.3,1) forwards
+      animation-delay 0.2s
+   & .yesLogo
+      & path, rect, polygon
+         transition: all 0.5s ease 0.3s;
+         fill: white
+      animation: animLoadingHeaderLogo-inPage 1.2s cubic-bezier(0.7,0,0.3,1) forwards
+      animation-delay 0s
+   & .progressLogo
+      animation: animLoadingHeaderLoader-inPage 1.2s cubic-bezier(0.7,0,0.3,1) forwards
+      animation-delay 0.4s
+      & .headerLoader-progress
+         stroke: #6b797c
+         stroke-width: 12
+      & pre
+         animation: animShow 1.2s cubic-bezier(0.7,0,0.3,1) both;
+         animation-delay: 1s
+         color: #6b797c !important
+
+.loading-portfolio, .loading-about
+   & .loadingBg
+      top 0
+
+.siteLoading-about, .siteLoading-portfolio, .siteLoading-blog, .siteLoading-portfolioPage
+   animation none !important
+   transition none !important
+   transform translate3d(0, -100vh, 0)
+   & .loadingBg
+      position absolute
+      top 0vh
+      opacity 1
+      transform: translate3d(0, 100vh, 0)
+
+
+// NOTE: loaded states
+.loaded
+   & .layout-headerLoader
+      animation: animLoadedHeaderBg-intialLoaded 1s cubic-bezier(0.7,0,0.3,1) forwards
+
+.index-loaded
+   & .yesLogo
+      & path, rect, polygon
+         transition: all 0.5s ease 0.3s;
+         fill: white
+      opacity: 1
+      transform-origin: 50% 0
+      animation: animLoadedHeaderLogo-intialLoaded 1s cubic-bezier(0.7,0,0.3,1) forwards
+   & .progressLogo
+      opacity: 1
+      animation: animLoadedHeaderLoader-intialLoaded 0.5s cubic-bezier(0.7,0,0.3,1) forwards
+
+.about-loaded, .portfolio-loaded, .blog-loaded, .portfolioPage-loaded
+   & .loadingBg
+      opacity 1
+      animation: animLoadedHeaderBg-inPageLoaded 1s cubic-bezier(0.7,0,0.3,1) forwards
+   & .yesLogo
+      & path, rect, polygon
+         transition: all 0.5s ease 0.3s;
+         fill: white
+      opacity: 1
+      transform-origin: 50% 0
+      animation: animLoadedHeaderLogo-inPageLoaded 1s cubic-bezier(0.7,0,0.3,1) forwards
+   & .progressLogo
+      animation: animLoadedHeaderLoader-inPageLoaded 0.5s cubic-bezier(0.7,0,0.3,1) forwards
+      & .headerLoader-progress
+         stroke: #4d5759
+         stroke-width: 12
+
+.portfolioPage-loaded
+  & .yesLogo
+     & path, rect, polygon
+        transition: all 0.5s ease 0.3s;
+        fill: #a0c600
+  & .progressLogo
+     animation: animLoadedHeaderLoader-inPageLoaded 0.5s cubic-bezier(0.7,0,0.3,1) forwards
+     & .headerLoader-progress
+        stroke: #4d5759
+        stroke-width: 12
+
+//================================
+// layout
+//--------------------------------
+.layout-headerLoader
+   column(1/1, $gutter:0)
+   u_RadiusGradien(#deecee, #d0dee1, #a7b5b9, #98a6ac)
+   height:100vh
+   text-align:center
+   position:absolute
+   z-index: headerZ
+   & .headerLoader-loader
+      margin-top: $headerLoader-marginTop
+      & pre
+         font-size:10px
+         color: #4ca7c4
+

@@ -1,0 +1,12 @@
+{
+  "spec_dir": "spec",
+  "spec_files": [
+    "/__tests__/webio/.*|\\.(test|spec))\\.(ts|tsx|js)$"
+  ],
+  "helpers": [
+    "helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false,
+  "DEFAULT_TIMEOUT_INTERVAL": 10000
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#000">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>Portfolio</title>
+    <link rel="shortcut icon" type="image/x-icon" href="statics/favicon.ico">
+  </head>
+  <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-97376905-1', 'auto');
+
+     const SET_CURRENT_PAGEVIEW = function(path=window.location.hash){
+        ga('set', 'page', path)
+        ga('send', 'pageview')
+     }
+     window.SET_CURRENT_PAGEVIEW = SET_CURRENT_PAGEVIEW
+     SET_CURRENT_PAGEVIEW()
+  </script>
+  <body>
+    <div id="appRoot"></div>
+
+    <!-- built files will be auto injected -->
+  </body>
+</html>

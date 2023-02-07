@@ -1,0 +1,163 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+import {_} from '../lodash_addon'
+import {TConsole, eCOLORS} from '../console_addon'
+import {walkAndDo, ErrorMsg} from '../Utils.js'
+import {ComponentNotLoadedProperly_Exception} from '../Exceptions'
+
+const Log           = new TConsole('store.all', eCOLORS.watch, [/Function./, 'Store.all.'])
+const infiniteLoops = 8
+
+Vue.use(Vuex)
+
+
+// ---------------------------------------------------
+//                   Parallax component
+// ---------------------------------------------------
+const layoutIndex = {
+   namespaced: true,
+   state    : {
+      loading: new Set(),
+      loaded : new Set(),
+   },
+   mutations: {
+      loading(state, comp){
+         state.loading.add(comp)
+      },
+      loaded(state, comp){
+         state.loaded.add(comp)
+         state.loading.remove(comp)
+      }
+   }
+}
+const layoutMain  = {
+   namespaced: true,
+   state    : {
+      action      : 'loading',
+      lastBehavior: 'none',
+      behavior    : 'none'
+   },
+   mutations: {
+      hover(state, id){
+         state.lastBehavior = state.behavior
+         state.behavior     = {name: 'hover', id: id}
+      },
+      hout(state){
+         state.lastBehavior = state.behavior
+         state.behavior     = {name: 'hout', id: state.lastBehavior.id}
+      },
+      triggerAction(state, act){
+         state.action       = 'trigger' + act
+         state.lastBehavior = state.behavior
+         state.behavior     = {name: 'triggered', id: state.lastBehavior.id}
+      },
+   },
+   getters  : {}
+}
+const parallax    = {
+   namespaced: true,
+   state     : {
+      compsInViewport: new Set(),
+      components     : new Set()
+   },
+   mutations : {
+      addViewportComp (state, comp){
+         state.compsInViewport.add(comp)
+      },
+      removeViewportComp(state, comp){
+         state.components.delete(comp)
+      }
+   },
+   getters   : {
+      getViewportComps (state)/*:Set<Parallax>*/ {
+         return state.compsInViewport
+      },
+      getComponentsByPath(state, path/*:{key:string, value:any}*/)/*:?Parallax*/{
+         for (let comp of state.components) {
+            if (comp[path.key] === path.value) return comp
+         }
+      }
+   }
+}
+
+
+// ---------------------------------------------------
+//             global store for Index component
+// ---------------------------------------------------
+const store = new Vuex.Store({
+   modules  : {
+      parallax: parallax,
+      index   : layoutIndex,
+      main    : layoutMain
+   },
+   state    : {
+      // components recorder, for implementing onAllComponentsLoaded
+      components: new Set()
+   },
+   getters  : {
+      getCompByPath: (state /*:object*/, path/*: {key:string, value:object}*/)/*:?object*/ => {
+         for (let comp of state.components) {
+            if (comp[path.key] === path.value) return comp
+         }
+      }
+   },
+   mutations: {
+      // NOTE: define loading and loaded state methods
+      // commit before children mounted
+      loading (state, comp){
+         state.components.add(comp)
+         Log.i('[store.loading] comp:', comp.name, 'state.components:', state.components)
+         function testLoaded() {
+            if (comp._isMounted) {
+               Log.l(`[store.loading.testLoaded] component: "${comp.name}" mounted, invoke commit loaded`)
+               store.commit('loaded', comp)
+            } else {
+               Log.l(`[store.loading.testLoaded] component: "${comp.name}" not mounted, testLoaded again`)
+               _.scheduleOnce(testLoaded, 50)
+            }
+         }
+         
+         _.scheduleOnce(testLoaded, 50)
+      },
+      // commit when children mounted
+      loaded (state, comp){
+         let comps_counter = 0
+         let comp_sum      = state.components.size
+         if (!state.components.has(comp)) {
+            throw new ComponentNotLoadedProperly_Exception(comp, state.components)
+         }
+         function testAllComponentsLoaded() {
+            walkAndDo(comp.$root.$children[0], e => e.$children, i => i.length !== 0, (comp) => {
+               if (!state.components.has(comp)) {
+                  Log.l(`[store.loaded.walkAndDo] component:${comp.name} not loaded yet, test again`)
+                  //return _.scheduleOnce(testAllComponentsLoaded, 100, {identity: 'commitLoaded'})
+                  throw new ComponentNotLoadedProperly_Exception(comp, state.components)
+               } else {
+                  comps_counter++
+                  Log.l('comps counter:', comps_counter, comp_sum)
+               }
+            })
+            if (comp_sum === comps_counter) {
+               _.CONST.scheduleIDs['commitLoaded'].cancel()
+               comp.$root.onAllComponentsLoaded()
+            } else {
+               Log.l(`[store.loaded.testAllComponentsLoaded] component not loaded yet, test again`)
+               if (comps_counter - comp_sum > infiniteLoops) {
+                  _.CONST.scheduleIDs['commitLoaded'].cancel()
+                  Log.error('Oops! seems infinite loading happens')
+               } else {
+                  _.scheduleOnce(testAllComponentsLoaded, 100, {identity: 'commitLoaded'})
+               }
+            }
+         }
+         
+         Log.l('[store.loaded] comp:', comp.name)
+         _.scheduleOnce(testAllComponentsLoaded, 100, {identity: 'commitLoaded'})
+      }
+   }
+})
+
+
+export{
+   store, parallax
+}

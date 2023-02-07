@@ -1,0 +1,101 @@
+@import "../themes/normalize.css"
+@import "../themes/app.variables.styl"
+@import "../themes/css_tips.pcss"
+@import "../../node_modules/jeet"
+
+// debug
+u_gridDebugger = true
+// instance, color, labelOn/Off, label
+u_grid(class:layoutA, color:#795255)
+u_grid(class:layoutA-nav, color:#cdb200, label:"nav")
+u_grid(class:layoutA-stack, color:#2dc1df, label:"section")
+u_grid(class:layoutB-nav, color:#cdb200, label:"nav")
+u_grid(class:layoutB-stack, color:#2dc1df, label:"section")
+
+html
+   min-width: iphone5_w
+
+somthing
+   u_size(11, 12)
+
+.deviceInfo
+   background: #3092b1
+   column(1 / 1, $gutter: 0)
+   @media device_nexus10
+      background: #35ff26
+   @media device_ipad
+      background: #ff411a
+   @media device_nexus7
+      background: #9bff33
+   @media device_iphone6p
+      background: #ff7a11
+   @media device_iphone6
+      background: #ffab13
+   @media device_nexus5
+      background: #d9ff31
+   @media device_iphone5
+      background: #ffcc66
+
+//================================
+// layout
+//--------------------------------
+
+.layoutA
+   column(1 / 1, $gutter: 0)
+   & .layoutA-nav
+      column(1 / 4, $gutter: 0)
+      min-height: 200px
+   & .layoutA-stack
+      column(3 / 4, $gutter: 0)
+   @media device_laptop_S
+      & .layoutA-nav
+         column(3 / 10, $gutter: 0, $cycle: 2)
+      & .layoutA-stack
+         column(7 / 10, $gutter: 0, $cycle: 0)
+   @media device_tablet
+      & .layoutA-nav
+         column(2 / 5, $gutter: 0, $cycle: 2)
+      & .layoutA-stack
+         column(3 / 5, $gutter: 0, $cycle: 0)
+   @media device_mobile_L
+      & .layoutA-nav
+         stack($align: center)
+         min-height:auto
+      & .layoutA-stack
+         column(1 / 1, $cycle: 0)
+         stack($align: center)
+
+
+.layoutB
+   column(1 / 1, $gutter: 0)
+   & .layoutB-stack
+      column(1/1, $gutter:0)
+
+   & .layoutB-nav[min-width~="695px"]     //NOTE: element query
+      border: solid 3px #650054
+      font-size: 1.6em
+      color: #d94f5c
+      & ul li
+         display:inline
+// pseudo selector like before and after is not supported
+// to solve this problem we need a fake trigger for invoking the selection
+   & .layoutB-stack{u_LT(425px)}          //NOTE: element query
+      content:""
+   & .layoutB-stack{u_LT(425px)}::before  //NOTE: element query
+      content: "< 425px" !important
+   & .layoutB-stack{u_BT(425px)}          //NOTE: element query
+      content:""
+   & .layoutB-stack{u_BT(425px)}::before  //NOTE: element query
+      content: "> 425px" !important
+   & .layoutB-stack{u_BT(625px)}          //NOTE: element query
+      content:""
+   & .layoutB-stack{u_BT(625px)}::before  //NOTE: element query
+      content: "> 625px" !important
+
+
+
+
+
+
+
+

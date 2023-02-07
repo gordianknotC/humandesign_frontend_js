@@ -1,0 +1,31 @@
+
+
+:root {
+  --min-width: 1000px;
+  --smallscreen: 480px;
+  --iphone5: 320px;
+  --nexus5: 360px;
+  --iphone6: 375px;
+  --iphone6p: 414px;
+  --nexus7: 600px;
+  --ipad: 768px;
+  --nexus10: 800px;
+}
+
+
+$nexus10: 800px;
+$blue: #056ef0;
+$content_text_color: #40404a;
+$column: 200px;
+
+
+@custom-media --small-device ( width <=--smallscreen);
+@custom-media --device-iphone5 (max-width: 320px);
+@custom-media --device-iphone6 (max-width: 375px);
+@custom-media --device-iphone6p (max-width: 414px);
+@custom-media --device-nexus5 (max-width: 360px);
+@custom-media --device-nexus7 (max-width: 600px);
+@custom-media --device-ipad (max-width: 768px);
+@custom-media --device-nexus10 (max-width: 800px);
+
+
