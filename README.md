@@ -1,7 +1,7 @@
 
 
 ## Simple Humandesign Calculator - front end
-只包含前端部份，2017年寫完就不再維護，結構混亂，年代久遠(js+flow-type)，待更新。 後台 [backend] 由 python 使用 pyephem 提供的科學計算得出所有天體資料，再由前端 render 成.
+人類圖計算及繪制，只包含前端部份，2017年寫完就不再維護，結構混亂，年代久遠(js+flow-type)，待更新。 後台 [backend] 由 python 使用 pyephem 提供的科學計算得出所有天體資料，再由前端 render 成.
 
 __human design bodygraph:__
 ![screen1](./src/assets/hd_screenshot.png)
