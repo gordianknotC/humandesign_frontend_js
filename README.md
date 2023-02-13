@@ -19,7 +19,6 @@ human design body graph 繪制及析見 [humandesign.js]
 
 __dependencies:__
  - quasar framework
- - flow-typed
  - paperjs
 
 __install:__
