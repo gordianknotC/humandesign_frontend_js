@@ -28,6 +28,10 @@ npm install
 npm run build
 ```
 
+__todo原設計UI:__
+![](.README_images/design.png)
+白環代表白天，下方是黑夜，相對位置 為宮位
+
 
 [screen1]: src/assets/hd_screenshot.png
 [humandesign.js]: src/humandesign.js
